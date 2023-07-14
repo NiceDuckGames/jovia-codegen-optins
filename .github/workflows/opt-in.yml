@@ -27,16 +27,19 @@ jobs:
       - name: Run Opt-In Parser
         run: |
           cd scripts
-          ISSUE_BODY="${{ github.event.issue.body }}" python opt_in_parser.py
+          ISSUE_LINK="${{github.event.issue.url}}" ISSUE_BODY="${{ github.event.issue.body }}" python opt_in_parser.py
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Opt-In Data Collection Update"
-          branch: opt-in-update
-          title: "Update Opt-In Data Collection"
+          commit-message: "Opt-In ${{env.PROJECT_NAME}}"
+          branch: opt-in-${{env.PROJECT_NAME}}
+          title: "Opt-In ${{env.PROJECT_NAME}}"
           body: |
             This pull request updates the opt-in data collection list based on the latest opt-in issues.
-
+            
+            Project name: ${{env.PROJECT_NAME}}
+            Issue link: ${{env.ISSUE_LINK}}
+            
             Please review the changes and merge if appropriate.
