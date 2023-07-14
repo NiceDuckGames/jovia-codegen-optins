@@ -67,7 +67,7 @@ If, at any time, you decide to opt-out or have your project removed from the dat
 
 ## Licensing
 
-The repository itself is licensed under the [MIT License], and each project contributed is subject to its own respective open-source licenses as specified within the project directories.
+The repository itself is licensed under the [MIT License](https://github.com/NiceDuckGames/ducky-ai-optins/blob/main/LICENSE), and each project contributed is subject to its own respective open-source licenses as specified within the project directories.
 
 ## Contact
 
