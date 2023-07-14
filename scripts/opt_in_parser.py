@@ -16,10 +16,11 @@ def parse_opt_in_issue(issue_body):
         exit(1)
 
     title = title_match.group(1).strip()
+    title = title.replace(' ', '_')
     repository_url = repo_match.group(1).strip()
     commit_hash = commit_match.group(1).strip()
 
-    return {'title': title, 'repository_url': repository_url, 'commit_hash': commit_hash}
+    return {'title': title, 'repository_url': repository_url, 'commit_hash': commit_hash, 'issue_link': os.getenv('ISSUE_LINK')}
 
 def update_opt_ins_file(opt_in_data):
     # Append opt-in data to the JSONL file
@@ -37,6 +38,12 @@ def main():
 
     # Parse the opt-in issue and extract relevant data
     opt_in_data = parse_opt_in_issue(issue_body)
+
+    print("OPT-IN Request")
+    print(opt_in_data)
+
+    # Add the opt-in project name to the ENV
+    os.environ['PROJECT_NAME'] = opt_in_data['title']
 
     # Create the opt-ins file if it doesn't exist
     if not os.path.exists(OPTINS_FILE):
