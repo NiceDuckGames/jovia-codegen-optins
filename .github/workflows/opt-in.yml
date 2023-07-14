@@ -2,7 +2,7 @@ name: Opt-In Parser
 
 on:
   issues:
-    types: [opened]
+    types: [opened, reopened]
 
 jobs:
   generate-pull-request:
