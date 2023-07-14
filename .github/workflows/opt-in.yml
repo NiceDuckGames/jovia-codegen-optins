@@ -6,7 +6,7 @@ on:
 
 jobs:
   generate-pull-request:
-    if: startsWith(github.event.issue.title, "OPT-IN:")
+    if: startsWith(github.event.issue.title, 'OPT-IN:')
     runs-on: ubuntu-latest
 
     steps:
