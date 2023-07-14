@@ -27,7 +27,7 @@ jobs:
       - name: Run Opt-In Parser
         run: |
           cd scripts
-          python opt_in_parser.py ${{ github.event.issue.body }}
+          ISSUE_BODY="${{ github.event.issue.body }}" python opt_in_parser.py
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
