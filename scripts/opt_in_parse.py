@@ -1,43 +1,41 @@
 import os
-import requests
-from github import Github
+import json
+import sys
 
-# GitHub API token
-GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+# Directory where the opt-ins file is located
+OPTINS_FILE = '../optins.jsonl'
 
-# Repository information
-REPO_OWNER = 'NiceDuckGames'
-REPO_NAME = 'ducky-ai-optins'
+def parse_opt_in_issue(issue_body):
+    # Extract relevant data from the issue body
+    data = json.loads(issue_body)
+    project_url = data['project_url']
+    commit_hash = data['commit_hash']
 
-def parse_opt_in_issues():
-    # Initialize GitHub API client
-    g = Github(GITHUB_TOKEN)
+    return {'project_url': project_url, 'commit_hash': commit_hash}
 
-    # Get the repository
-    repo = g.get_repo(f'{REPO_OWNER}/{REPO_NAME}')
-
-    # Get all open opt-in issues
-    opt_in_issues = repo.get_issues(state='open', labels=['opt-in'])
-
-    # Generate opt-in data collection list
-    opt_in_data = []
-    for issue in opt_in_issues:
-        project_url = issue.body.strip()
-        commit_hash = issue.comments[0].body.strip() if issue.comments else ''
-        opt_in_data.append({'project_url': project_url, 'commit_hash': commit_hash})
-
-    return opt_in_data
-
-def update_opt_in_list(opt_in_data):
-    # Write opt-in data to a file
-    with open('opt_in_list.txt', 'w') as file:
-        for item in opt_in_data:
-            file.write(f"{item['project_url']},{item['commit_hash']}\n")
+def update_opt_ins_file(opt_in_data):
+    # Append opt-in data to the JSONL file
+    with open(OPTINS_FILE, 'a') as file:
+        json.dump(opt_in_data, file)
+        file.write('\n')
 
 def main():
-    opt_in_data = parse_opt_in_issues()
-    update_opt_in_list(opt_in_data)
-    print('Opt-in data collection list has been updated.')
+    # Get the issue body from the command line argument
+    if len(sys.argv) < 2:
+        print('Error: Issue body is missing.')
+        sys.exit(1)
+
+    issue_body = sys.argv[1]
+
+    # Parse the opt-in issue and extract relevant data
+    opt_in_data = parse_opt_in_issue(issue_body)
+
+    # Create the opt-ins file if it doesn't exist
+    if not os.path.exists(OPTINS_FILE):
+        open(OPTINS_FILE, 'a').close()
+
+    # Update the opt-ins file
+    update_opt_ins_file(opt_in_data)
 
 if __name__ == '__main__':
     main()
