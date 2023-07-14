@@ -27,6 +27,9 @@ def main():
 
     issue_body = sys.argv[1]
 
+    print("Parsing issue body")
+    print(issue_body)
+
     # Parse the opt-in issue and extract relevant data
     opt_in_data = parse_opt_in_issue(issue_body)
 
