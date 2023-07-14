@@ -1,17 +1,25 @@
 import os
+import re
 import json
-import sys
 
 # Directory where the opt-ins file is located
 OPTINS_FILE = '../optins.jsonl'
 
 def parse_opt_in_issue(issue_body):
     # Extract relevant data from the issue body
-    data = json.loads(issue_body)
-    project_url = data['project_url']
-    commit_hash = data['commit_hash']
+    title_match = re.search(r'## Opt-In Request: (.+)', issue_body)
+    repo_match = re.search(r'GitHub Repository: (.+)', issue_body)
+    commit_match = re.search(r'Commit Hash: (.+)', issue_body)
 
-    return {'project_url': project_url, 'commit_hash': commit_hash}
+    if not (title_match and repo_match and commit_match):
+        print('Error: Invalid issue body format.')
+        exit(1)
+
+    title = title_match.group(1).strip()
+    repository_url = repo_match.group(1).strip()
+    commit_hash = commit_match.group(1).strip()
+
+    return {'title': title, 'repository_url': repository_url, 'commit_hash': commit_hash}
 
 def update_opt_ins_file(opt_in_data):
     # Append opt-in data to the JSONL file
@@ -20,15 +28,12 @@ def update_opt_ins_file(opt_in_data):
         file.write('\n')
 
 def main():
-    # Get the issue body from the command line argument
-    if len(sys.argv) < 2:
+    # Get the issue body from the environment variable
+    issue_body = os.getenv('ISSUE_BODY')
+
+    if issue_body is None:
         print('Error: Issue body is missing.')
-        sys.exit(1)
-
-    issue_body = sys.argv[1]
-
-    print("Parsing issue body")
-    print(issue_body)
+        exit(1)
 
     # Parse the opt-in issue and extract relevant data
     opt_in_data = parse_opt_in_issue(issue_body)
