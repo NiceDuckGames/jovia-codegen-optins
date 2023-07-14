@@ -42,8 +42,11 @@ def main():
     print("OPT-IN Request")
     print(opt_in_data)
 
-    # Add the opt-in project name to the ENV
-    os.environ['PROJECT_NAME'] = opt_in_data['title']
+    # Add the opt-in project name to the GH ENV
+    env_file = os.getenv('GITHUB_ENV')
+
+    with open(env_file, "a") as envfile:
+        envfile.write(f"PROJECT_NAME={opt_in_data['title']}\n")
 
     # Create the opt-ins file if it doesn't exist
     if not os.path.exists(OPTINS_FILE):
