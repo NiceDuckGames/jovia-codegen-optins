@@ -3,12 +3,12 @@
 
 This repository provides a platform for Godot 4 users to opt-in their open-source projects for data collection to contribute to the continuous fine-tuning of a Language Model (LM). The collected data will be used to improve the LM's code generation capabilities specifically for Godot 4 projects.
 
-## How to Contribute
+## How to Opt-In
 
 To opt-in your Godot 4 project for data collection, follow these steps:
 
 1. Create an issue on this repository using the "New Issue" button.
-2. Use the following template for your opt-in issue:
+2. Use the OPT-IN template for your opt-in issue: (This is the default issue template when you create a new issue)
 
 ```
 ## Opt-In Request: [Your Project Name]
@@ -28,6 +28,32 @@ Please find the specific commit hash that represents the version of my project t
     - Specify the `[Specific commit hash]` that represents the version of your project you want to contribute.
 2. Submit the issue by clicking "Submit new issue".
 
+## Usage
+
+Once you have opted in, we provide a special comment syntax that allows you to control how your code will be used for training. 
+You can define additional context for training on a per-script and per-function basis by providing descriptions and example prompts for the training data. 
+Below is an example of how to use this syntax in your scripts:
+
+```python
+# description: A script containing set of functions that perform simple mathmatical operations
+# prompt: Write a simple math library
+
+extends Node
+
+# description: A function that returns the sum of two floats
+# prompt: Write an addition function
+func add(a: float, b: float) -> float:
+	return a + b
+
+# description: A function that returns the difference of two floats
+# prompt: Write a subtraction function
+func subtract(a: float, b: float) -> float:
+	return a - b
+```
+
+- `# description:`  a detailed description of the purpose of the function or script.
+- `# prompt:`  an example prompt that you would expect this function/script to be the result of.
+
 ## Data Privacy and Usage
 
 We prioritize data privacy and respect the rights of contributors. By opting-in your project for data collection, you acknowledge and agree to the following:
@@ -45,6 +71,6 @@ The repository itself is licensed under the [MIT License], and each project cont
 
 ## Contact
 
-If you have any questions, concerns, or suggestions regarding this data collection initiative or the use of your projects, please contact us through the repository's issue tracker or by email at [email protected]
+If you have any questions, concerns, or suggestions regarding this data collection initiative or the use of your projects, please contact us through the repository's issue tracker.
 
 We appreciate your participation and contributions to improving the Language Model's code generation capabilities for Godot 4 projects. Together, we can enhance the development experience for the Godot community.
