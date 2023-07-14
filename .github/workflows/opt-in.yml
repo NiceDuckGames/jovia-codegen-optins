@@ -6,7 +6,7 @@ on:
 
 jobs:
   generate-pull-request:
-    if: contains(fromJson(github.event.labels), "opt-in")
+    if: startsWith(github.event.issue.title, "OPT-IN:")
     runs-on: ubuntu-latest
 
     steps:
@@ -18,16 +18,16 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install Dependencies
-        run: |
-          cd scripts
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+#       - name: Install Dependencies
+#         run: |
+#           cd scripts
+#           python -m pip install --upgrade pip
+#           pip install -r requirements.txt
 
       - name: Run Opt-In Parser
         run: |
           cd scripts
-          python opt_in_parser.py
+          python opt_in_parser.py ${{ github.event.issue.body }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
