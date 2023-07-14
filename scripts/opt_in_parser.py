@@ -47,6 +47,7 @@ def main():
 
     with open(env_file, "a") as envfile:
         envfile.write(f"PROJECT_NAME={opt_in_data['title']}\n")
+        envfile.write(f"PROJECT_LINK={opt_in_data['repository_url']}\n")
 
     # Create the opt-ins file if it doesn't exist
     if not os.path.exists(OPTINS_FILE):
