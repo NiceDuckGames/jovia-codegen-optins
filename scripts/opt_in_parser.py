@@ -5,6 +5,13 @@ import json
 # Directory where the opt-ins file is located
 OPTINS_FILE = '../optins.jsonl'
 
+def parse_url(url):
+    parts = url.split('/')
+    new_parts = parts[:5] + ['']
+
+    new_url = '/'.join(new_parts)
+    return new_url
+
 def parse_opt_in_issue(issue_body):
     # Extract relevant data from the issue body
     title_match = re.search(r'## Opt-In Request: (.+)', issue_body)
@@ -20,7 +27,13 @@ def parse_opt_in_issue(issue_body):
     repository_url = repo_match.group(1).strip()
     commit_hash = commit_match.group(1).strip()
 
-    return {'title': title, 'repository_url': repository_url, 'commit_hash': commit_hash, 'issue_link': os.getenv('ISSUE_LINK')}
+    return {
+        'title': title, 
+        'repository_url': repository_url, 
+        'commit_hash': commit_hash, 
+        'tree_url': parse_url(repository_url) + f'tree/{commit_hash}', 
+        'issue_link': os.getenv('ISSUE_LINK')
+    }
 
 def update_opt_ins_file(opt_in_data):
     # Append opt-in data to the JSONL file
@@ -42,12 +55,14 @@ def main():
     print("OPT-IN Request")
     print(opt_in_data)
 
-    # Add the opt-in project name to the GH ENV
+    # Add opt-in data to the GH ENV for use in the workflow.
     env_file = os.getenv('GITHUB_ENV')
 
     with open(env_file, "a") as envfile:
         envfile.write(f"PROJECT_NAME={opt_in_data['title']}\n")
         envfile.write(f"PROJECT_LINK={opt_in_data['repository_url']}\n")
+        envfile.write(f"COMMIT_HASH={opt_in_data['commit_hash']}\n")
+        envfile.write(f"TREE_URL={opt_in_data['commit_hash']}\n")
 
     # Create the opt-ins file if it doesn't exist
     if not os.path.exists(OPTINS_FILE):

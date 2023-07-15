@@ -41,6 +41,8 @@ jobs:
             
             Opt-In Issue Author: @${{ github.event.issue.user.login }}
             
+            Tree URL: ${{ env.TREE_URL }}
+            
             Closes #${{ github.event.issue.number }}
             
             ## Original issue text
