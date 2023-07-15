@@ -39,7 +39,7 @@ jobs:
           body: |
             This pull request updates the opt-in data collection list with the information found below
             
-            Opt-In Issue Author: @${{ github.event.issue.user.name }}
+            Opt-In Issue Author: @${{ github.event.issue.user.login }}
             
             Closes #${{ github.event.issue.number }}
             
