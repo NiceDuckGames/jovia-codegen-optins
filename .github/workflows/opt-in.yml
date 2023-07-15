@@ -37,10 +37,13 @@ jobs:
           branch: "opt-in-${{ env.PROJECT_NAME }}"
           title: "Opt-In ${{ env.PROJECT_NAME }}"
           body: |
-            This pull request updates the opt-in data collection list based on the latest opt-in issues.
+            This pull request updates the opt-in data collection list with the information found below
             
-            Project name: ${{ env.PROJECT_NAME }}
-            Issue link: ${{ github.event.issue.url }}
-            Project link: ${{ env.PROJECT_LINK }}
+            Opt-In Issue Author: @${{ github.event.issue.user.name }}
+            
+            Closes #${{ github.event.issue.id }}
+            
+            ## Original issue text
+            > ${{ github.event.issue.body }}
             
             Please review the changes and merge if appropriate.
