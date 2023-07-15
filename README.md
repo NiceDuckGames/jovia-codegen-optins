@@ -28,9 +28,17 @@ Please find the specific commit hash that represents the version of my project t
     - Specify the `[Specific commit hash]` that represents the version of your project you want to contribute.
 2. Submit the issue by clicking "Submit new issue".
 
+**We will only accept projects which fall under a suitably permissive open-source license. Some examples may be found below.**
+
+- mit
+- apache-2.0
+- isc
+- cc0-1.0
+- zlib
+
 ## Usage
 
-Once you have opted in, we provide a special comment syntax that allows you to control how your code will be used for training. 
+We provide a special comment syntax that allows you to control how your code will be used for training. It is recommened to update your code with this syntax BEFORE you opt-in.
 You can define additional context for training on a per-script and per-function basis by providing descriptions and example prompts for the training data. 
 Below is an example of how to use this syntax in your scripts:
 
@@ -62,8 +70,9 @@ We prioritize data privacy and respect the rights of contributors. By opting-in 
 - We will not share your project or its code outside the scope of the LM fine-tuning.
 - Your project will be attributed appropriately within the fine-tuning dataset.
 - You retain full ownership and control over your project and its associated licenses.
+- We will not retroactively remove your project from previous datasets and trained models should you chose to opt-out after opting in.
 
-If, at any time, you decide to opt-out or have your project removed from the data collection process, please reach out to us with the necessary details, and we will promptly address your request.
+If, at any time, you decide to opt-out or have your project removed from future data collection processes after opting in, please reach out to us with the necessary details, and we will promptly address your request.
 
 ## Licensing
 
