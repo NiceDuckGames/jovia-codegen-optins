@@ -62,7 +62,7 @@ def main():
         envfile.write(f"PROJECT_NAME={opt_in_data['title']}\n")
         envfile.write(f"PROJECT_LINK={opt_in_data['repository_url']}\n")
         envfile.write(f"COMMIT_HASH={opt_in_data['commit_hash']}\n")
-        envfile.write(f"TREE_URL={opt_in_data['commit_hash']}\n")
+        envfile.write(f"TREE_URL={opt_in_data['tree_url']}\n")
 
     # Create the opt-ins file if it doesn't exist
     if not os.path.exists(OPTINS_FILE):
