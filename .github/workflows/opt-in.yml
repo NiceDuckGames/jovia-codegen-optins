@@ -41,9 +41,11 @@ jobs:
             
             Opt-In Issue Author: @${{ github.event.issue.user.name }}
             
-            Closes #${{ github.event.issue.id }}
+            Closes #${{ github.event.issue.number }}
             
             ## Original issue text
-            > ${{ github.event.issue.body }}
+            <blockquote>
+            ${{ github.event.issue.body }}
+            </blockquote>
             
             Please review the changes and merge if appropriate.
