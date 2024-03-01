@@ -1,4 +1,4 @@
-# ducky-ai-optins
+# jovia-codgen-optins
 ## Description
 
 This repository provides a platform for Godot 4 users to opt-in their open-source projects for data collection to contribute to the continuous fine-tuning of a Language Model (LM). The collected data will be used to improve the LM's code generation capabilities specifically for Godot 4 projects.
@@ -76,7 +76,7 @@ If, at any time, you decide to opt-out or have your project removed from future 
 
 ## Licensing
 
-The repository itself is licensed under the [MIT License](https://github.com/NiceDuckGames/ducky-ai-optins/blob/main/LICENSE), and each project contributed is subject to its own respective open-source licenses as specified within the project directories.
+The repository itself is licensed under the [MIT License](https://github.com/NiceDuckGames/jovia-ai-optins/blob/main/LICENSE), and each project contributed is subject to its own respective open-source licenses as specified within the project directories.
 
 ## Contact
 
